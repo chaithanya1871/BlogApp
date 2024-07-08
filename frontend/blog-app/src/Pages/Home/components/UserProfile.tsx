@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { userServiceAPI } from "../../../Services/userService";
 import { useState } from "react";
 import { RiArrowDropDownFill, RiArrowDropUpFill } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -18,13 +19,18 @@ const UserProfile = () => {
             return userServiceAPI.get_user_info(token)
         }
     })
+    const navigate = useNavigate();
     const handleOptionClick = ()=>{
         setIsOpen((prev) => !prev);
+    }
+    const handleBlogWrite = ()=>{
+        navigate('blog/create/')
+        
     }
     
     return (
         <div className=" flex justify-between gap-10 items-center">
-            <div className=" flex items-center justify-center gap-1">
+            <div className=" flex items-center justify-center gap-1 cursor-pointer" onClick={handleBlogWrite}>
                 <MdEditSquare />
                 <p>Write</p>
             </div>

@@ -5,6 +5,7 @@ import { CreateBlogData } from "./types";
 import SelectImage from "../../Components/SelectImage";
 import { useMutation } from "@tanstack/react-query";
 import { BlogServiceAPI } from "../../Services/BlogService";
+import { useNavigate } from "react-router-dom";
 interface CreateBlogParams {
     data: FormData;
     token: string | null;
@@ -20,10 +21,15 @@ const CreateBlog = () => {
     });
     const token = localStorage.getItem('token');
     const user_id = localStorage.getItem('user_id');
+    const navigate = useNavigate();
     const createPost = useMutation({
         mutationFn:({data, token}:CreateBlogParams)=>{
             return BlogServiceAPI.createBlog(data,token)
 
+        },
+        onSuccess :()=>{
+            navigate('/')
+            
         }
     })
     const [cover_image, setCoverImage] = useState<string|null>(null);
@@ -81,7 +87,7 @@ const CreateBlog = () => {
             data.append("status", status),
             data.append("category",formData.category)
             data.append('preview_image',preview_image as File);
-            data.append('user_id',user_id as string);
+            data.append('user',user_id as string);
             createPost.mutate({data, token});
            
 

@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Search from "./Search";
 import UserProfile from "./UserProfile";
 
 const Navbar = () => {
-    const authtoken = localStorage.getItem('token')
+    const authtoken = localStorage.getItem('token');
+    const navigate = useNavigate();
+    const navigateHome = ()=>{
+        navigate('/')
+    }
     return (
         <div className="border-[1.5px] shadow-md shadow-slate-300 h-16 w-full z-10 fixed top-0 left-0 right-0 p-8 bg-white">
             <div className=" flex items-center justify-between h-full mx-auto max-w-[1080px]">
-                <h3>Blog App</h3>
+                <h3 onClick={navigateHome} className=" cursor-pointer">Blog App</h3>
                 <Search/>
                 <ul className="flex space-x-6 text-md items-center">
                     {

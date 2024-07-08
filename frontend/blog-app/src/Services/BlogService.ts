@@ -10,5 +10,14 @@ export class BlogServiceAPI{
 
     })
     return response.data;
-}
+}   
+    static getAllBlogs = async(token:string|null)=>{
+        const response = await api.get('blogs/blog',{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization":`Bearer ${token}`
+            }
+    })
+    return response.data
+    }
 }
