@@ -7,6 +7,7 @@ export interface CategoryProps{
 }
 
 export interface BlogProps{
+    id:number,
     title:string,
     subtitle:string,
     preview_image:string,

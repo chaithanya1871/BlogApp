@@ -19,3 +19,9 @@ export interface SelectedImageProps{
     image:string | null,
     onChangeHandler: React.ChangeEventHandler<HTMLInputElement>;
 }
+
+export interface CommentDataProps{
+    content:string,
+    blog:string,
+    user_id:string
+}

@@ -5,6 +5,7 @@ import Home from "./Pages/Home/Home";
 import UpdateCreds from "./Pages/UpdateCreds/UpdateCreds";
 import CreateBlog from "./Pages/CreateBlog/CreateBlog";
 import ViewAllBlogs from "./Pages/ViewAllBlogs/ViewAllBlogs";
+import ViewSingleBlog from "./Pages/ViewSingleBlog/ViewSingleBlog";
 
 export const routes = createBrowserRouter([
     {
@@ -22,6 +23,10 @@ export const routes = createBrowserRouter([
             {
                 path:'blog/create/',
                 element:<CreateBlog/>
+            },
+            {
+                path:'blog/:blogId',
+                element:<ViewSingleBlog/>
             }
         ]
     },

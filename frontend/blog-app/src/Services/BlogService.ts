@@ -20,4 +20,13 @@ export class BlogServiceAPI{
     })
     return response.data
     }
+    static getBlogData = async(token:string|null, blogId:number)=>{
+        const response = await api.get(`blogs/blog/${blogId}`,{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization":`Bearer ${token}`
+            }
+    })
+    return response.data
+}
 }
