@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { RxCrossCircled } from "react-icons/rx"
 import { commentServiceAPI } from "../../../Services/commentService";
-import { CommentPostProps, CommentProps } from "../type";
+import { CommentDeleteProps, CommentPostProps, CommentProps } from "../type";
 import { CommentDataProps } from "../../../utils/types";
 import { ErrorMessage } from "../../../Components/ErrorMessage";
 import { AiFillDelete } from "react-icons/ai";
@@ -33,21 +33,29 @@ const Comments = ({blogID,setOpenComments}:CommentProps) => {
         }
         let data: CommentDataProps = {
             content: commentContent,
-            user_id: userId,
+            user: userId,
             blog: blogID
         };
         console.log(data);
         PostComment.mutate({ data, token });
     }
     const commentData = useQuery({
-        queryKey:['comments',token],
+        queryKey:['comments',token,blogID],
         queryFn:()=>{
-            return commentServiceAPI.getComments(token);
+            return commentServiceAPI.getComments(token,blogID);
         }
     })
-    const handleDeleteCommentOnClick = (commentID:string)=>{
-        console.log(commentID);
-
+    const deleteComment = useMutation({
+        mutationFn:({commentID, token}:CommentDeleteProps)=>{
+            return commentServiceAPI.deleteComment(commentID, token);
+        },
+        onSuccess:()=>{
+            queryClient.invalidateQueries({queryKey:['comments',token]})
+        }
+       })
+    const handleDeleteCommentOnClick = (commentID:number)=>{
+        deleteComment.mutate({commentID, token})
+       
     }
     if (commentData.isFetching) {
         return <div>Loading...</div>;

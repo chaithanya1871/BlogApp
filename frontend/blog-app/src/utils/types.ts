@@ -23,5 +23,5 @@ export interface SelectedImageProps{
 export interface CommentDataProps{
     content:string,
     blog:string,
-    user_id:string
+    user:string
 }

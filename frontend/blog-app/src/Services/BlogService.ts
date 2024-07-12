@@ -1,3 +1,4 @@
+import { CreateBlogData } from "../Pages/CreateBlog/types";
 import { api } from "./apiConfig"
 
 export class BlogServiceAPI{
@@ -11,11 +12,14 @@ export class BlogServiceAPI{
     })
     return response.data;
 }   
-    static getAllBlogs = async(token:string|null)=>{
+    static getAllBlogs = async(token:string|null,category:string)=>{
         const response = await api.get('blogs/blog',{
             headers:{
                 "Content-type": "application/json",
                 "Authorization":`Bearer ${token}`
+            },
+            params:{
+                category:category
             }
     })
     return response.data
@@ -28,5 +32,38 @@ export class BlogServiceAPI{
             }
     })
     return response.data
-}
+    }
+    static updateBlog = async(token:string|null, blogId:number, data:FormData)=>{
+        
+        const response = await api.put(`blogs/blog/${blogId}/`,data,{
+            headers:{
+                'Content-Type': 'application/json',
+                "Authorization":`Bearer ${token}`
+            }
+        })
+        return response.data;
+    }
+    static getUserBlog = async(token:string|null, user_id:string|null)=>{
+        const response = await api.get(`blogs/blog/`,{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization":`Bearer ${token}`
+            },
+            params:{
+                user:user_id,
+            }
+        }
+        )
+        return response.data;
+    }
+    static deleteBlog = async(token:string|null, blogId:string)=>{
+        const response = await api.delete(`blogs/blog/${blogId}`,{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization":`Bearer ${token}`
+            }
+        }
+        )
+        return response.data;
+    }
 }

@@ -4,5 +4,13 @@ export interface InputFieldProps{
     name: string,
     placeholder?:string,
     onChangeHanlder:React.ChangeEventHandler<HTMLInputElement>,
-    errorMsg?:string
+    errorMsg?:string,
+    value?:string
+}
+
+export interface DeleteModalProps{
+    description:string,
+    onDeleteHanlder:React.MouseEventHandler<HTMLButtonElement>,
+    setIsDelete:React.Dispatch<React.SetStateAction<boolean>>
+
 }

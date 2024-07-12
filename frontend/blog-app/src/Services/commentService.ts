@@ -11,11 +11,14 @@ export class commentServiceAPI{
         return response.data
     }
 
-    static getComments = async(token:string|null)=>{
+    static getComments = async(token:string|null, blogID:string)=>{
         const response = await api.get('blogs/comment/',{
             headers:{
                 "Content-type": "application/json",
                 "Authorization":`Bearer ${token}`
+            },
+            params:{
+                blog_id:blogID,
             }
 
         })
