@@ -1,5 +1,7 @@
 import {RouterProvider } from "react-router-dom"
 import { routes } from "./routes"
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 // import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 
 
@@ -53,7 +55,11 @@ function App() {
 //     </div>
 //   )
  return (
-    <RouterProvider router={routes}/>
+ <>
+  <ToastContainer position="bottom-right" autoClose={1500} style={{ fontSize: "0.7rem" }} />
+  <RouterProvider router={routes}/>
+ 
+ </>
   )
 }
     

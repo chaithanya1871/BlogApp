@@ -1,17 +1,25 @@
 import InputField from "../../Components/InputField";
 import { categoryData } from "../../utils/category";
-import { useState } from "react";
+import { CSSProperties, useState } from "react";
 import { CreateBlogData } from "./types";
 import SelectImage from "../../Components/SelectImage";
 import { useMutation } from "@tanstack/react-query";
 import { BlogServiceAPI } from "../../Services/BlogService";
 import { useNavigate } from "react-router-dom";
+import { ClipLoader } from "react-spinners";
+import LoaderComponent from "../../Components/LoaderComponent";
 interface CreateBlogParams {
     data: FormData;
     token: string | null;
   }
   
 
+//   const override: CSSProperties = {
+//     display: 'flex',
+//   justifyContent: 'center',
+//   alignItems: 'center',
+//   height: '100vh',
+//   };
 const CreateBlog = () => {
     const [formData, setFormData] = useState<CreateBlogData>({
         title:'',
@@ -22,12 +30,14 @@ const CreateBlog = () => {
     const token = localStorage.getItem('token');
     const user_id = localStorage.getItem('user_id');
     const navigate = useNavigate();
+    const [isloading, setIsLoading] = useState<boolean>(false);
     const createPost = useMutation({
         mutationFn:({data, token}:CreateBlogParams)=>{
             return BlogServiceAPI.createBlog(data,token)
 
         },
         onSuccess :()=>{
+            setIsLoading(false);
             navigate('/')
             
         }
@@ -78,6 +88,7 @@ const CreateBlog = () => {
     const submit = (e: React.MouseEvent<HTMLButtonElement>, status:string): void =>{
         e.preventDefault();
         if(validateFormData()){
+            setIsLoading(true);
             console.log(formData);
             console.log(preview_image);
             const data = new FormData();
@@ -88,8 +99,7 @@ const CreateBlog = () => {
             data.append("category",formData.category)
             data.append('preview_image',preview_image as File);
             data.append('user',user_id as string);
-            createPost.mutate({data, token});
-           
+            createPost.mutate({data, token});  
 
         }
 
@@ -124,7 +134,7 @@ const CreateBlog = () => {
 
             </form>
             
-
+            {isloading && <LoaderComponent isloading={isloading}/>}
         </div>
     );
 };

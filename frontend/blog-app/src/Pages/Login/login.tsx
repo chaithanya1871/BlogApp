@@ -5,6 +5,7 @@ import InputField from "../../Components/InputField";
 import { useMutation } from "@tanstack/react-query";
 import { userServiceAPI } from "../../Services/userService";
 import { setUserInfoInLocalStorage } from "../../utils/jwtToken";
+import { toast } from "react-toastify";
 
 const login = () => {
     const [formData,setFormData] = useState<FormDataLogin>({
@@ -29,9 +30,12 @@ const login = () => {
              return  userServiceAPI.login(data)
         },
         onSuccess:(data:any)=>{
-            console.log(data);
             navigate('/')
+            console.log("heyyyyyyy")
             setUserInfoInLocalStorage(data?.access);
+            toast.success("Login successs",{
+                position:"bottom-right"
+            })
 
         },
         onError:(error:any)=>{
