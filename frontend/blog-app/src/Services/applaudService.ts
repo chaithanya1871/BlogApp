@@ -11,5 +11,20 @@ export class applaudServieAPI{
         })
         return response.data;
     }
+    static whetherUserApplauded =async (token:string|null, user_id:string|null, blogId:string) => {
+        const response = await api.get('blogs/applaud/',{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization":`Bearer ${token}`
+            },
+            params:{
+                user:user_id,
+                blog_id:blogId
+            }
+        })
+        return response.data;
+
+        
+    }
 
 }

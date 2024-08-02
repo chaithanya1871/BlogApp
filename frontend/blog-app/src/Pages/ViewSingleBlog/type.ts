@@ -17,3 +17,6 @@ export interface ApplaudBlogProps{
     blog:string,
     user:string|null
 }
+export interface SaveBlogProps{
+    is_saved: 0 | 1
+}

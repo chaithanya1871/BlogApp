@@ -8,6 +8,7 @@ import ViewAllBlogs from "./Pages/ViewAllBlogs/ViewAllBlogs";
 import ViewSingleBlog from "./Pages/ViewSingleBlog/ViewSingleBlog";
 import EditBlog from "./Pages/EditBlog/EditBlog";
 import UserBlogs from "./Pages/UserBlogs/UserBlogs";
+import SavedBlogs from "./Pages/ViewSavedBlogs/SavedBlogs";
 
 export const routes = createBrowserRouter([
     {
@@ -37,6 +38,10 @@ export const routes = createBrowserRouter([
             {
                 path:'blogs/me',
                 element:<UserBlogs/>
+            },
+            {
+                path:'blogs/saved',
+                element:<SavedBlogs/>
             }
         ]
     },

@@ -13,7 +13,7 @@ export class BlogServiceAPI{
     return response.data;
 }   
     static getAllBlogs = async(token:string|null,category:string)=>{
-        const response = await api.get('blogs/blog',{
+        const response = await api.get('blogs/list/blog',{
             headers:{
                 "Content-type": "application/json",
                 "Authorization":`Bearer ${token}`
@@ -66,4 +66,18 @@ export class BlogServiceAPI{
         )
         return response.data;
     }
+    static savedBlogs =async (token:string | null, user_id:string|null) => {
+        const response = await api.get('blogs/list/blog',{
+            headers:{
+                "Content-type": "application/json",
+                "Authorization":`Bearer ${token}`
+            },
+            params:{
+                user:user_id,
+                is_saved:"true"
+            }
+        })
+     return response.data;   
+    }
+
 }

@@ -43,6 +43,9 @@ const UserProfile = () => {
         localStorage.removeItem('token')
         navigate('/')
     }
+    const handleSavedBlogs = ()=>{
+        navigate('/blogs/saved')
+    }
     
     return (
         <div className=" flex justify-between gap-10 items-center">
@@ -50,7 +53,7 @@ const UserProfile = () => {
                 <MdEditSquare />
                 <p>Write</p>
             </div>
-            <div className=" flex items-center justify-center gap-1">
+            <div className=" flex items-center justify-center gap-1 cursor-pointer" onClick={()=>handleSavedBlogs()}>
                 <BsBookmarkCheckFill />
                 <p>Saved</p>
             </div>

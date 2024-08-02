@@ -4,6 +4,7 @@ import { BlogServiceAPI } from "../../Services/BlogService";
 import BlogCard from "./components/BlogCard";
 import { BlogProps } from "./types";
 import { ErrorMessage } from "../../Components/ErrorMessage";
+import { Link } from "react-router-dom";
 
 const ViewAllBlogs = () => {
     const [catIndex, setCatIndex] = useState({
@@ -38,8 +39,9 @@ const ViewAllBlogs = () => {
             <div>
                 {blogData && blogData.length>0 ? (blogData.map((blog:BlogProps,index:number)=>(
                     <BlogCard key={index} blog={blog}/>
-                ))):(<div className="flex items-center justify-center h-full">
-                    <h1>No blogs found.</h1>
+                ))):(<div className="flex items-center justify-center h-[80vh] flex-col">
+                        <h1 className=" font-bold text-xl">No blogs found</h1>
+                        <Link className=" text-blue-500 cursor-pointer" to="/blog/create/">Create a Blog</Link>
                     </div>)}
             </div>
             

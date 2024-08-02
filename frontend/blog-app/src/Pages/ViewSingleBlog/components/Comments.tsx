@@ -24,6 +24,8 @@ const Comments = ({blogID,setOpenComments}:CommentProps) => {
         },
         onSuccess:()=>{
             queryClient.invalidateQueries({queryKey:['comments',token]});
+            queryClient.invalidateQueries({queryKey:['blog',token,blogID]})
+
         }
     })
     const handlePostComment = ()=>{
