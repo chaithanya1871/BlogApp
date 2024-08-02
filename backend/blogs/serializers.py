@@ -16,11 +16,9 @@ class BlogSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class BlogDetailSerializer(serializers.ModelSerializer):
-    user = UserDetailSerializer(read_only=True)
-
+class ApplaudSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Blog
+        model = Applaud
         fields = "__all__"
 
 
@@ -30,6 +28,16 @@ class CommentCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class BlogDetailSerializer(serializers.ModelSerializer):
+    user = UserDetailSerializer(read_only=True)
+    applauds = ApplaudSerializer(read_only=True, many=True)
+    comments = CommentCreateSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Blog
+        fields = "__all__"
+
+
 class CommentDetailSerializer(serializers.ModelSerializer):
     user = UserDetailSerializer(read_only=True)
     blog = BlogSerializer(read_only=True)
@@ -37,9 +45,3 @@ class CommentDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
         fields = '__all__'
-
-
-class ApplaudSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Applaud
-        fields = "__all__"
